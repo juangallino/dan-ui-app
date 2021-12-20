@@ -1,0 +1,102 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    position: absolute;
+    top: 40%;
+    width: 60%;
+    transform: translateY(-50%);
+    background-color: darkblue;
+  
+  
+  }
+
+  body{
+    margin:0;
+    padding: 0;
+    font-family: m;
+    background: linear-gradient(120deg,#2980b9,#8e44ad);
+    height: 100vh;
+    overflow: hidden;
+
+  }
+  
+
+  .center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    border-radius: 10px;
+  }
+
+  .center h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+  }
+
+  .centerCard {
+    padding: 0 40px;
+    box-sizing: border-box;    
+  }
+  .centerCard2 {
+    padding: 0 100px;
+        
+  }
+  .txt_field{
+ position: relative;
+ border-bottom: 2px solid #adadad; 
+ margin: 8px 0;
+}
+.txt_field input{
+  width: 100%;
+}
+ input{
+   width: 100%;
+   padding: 0 5px;
+   height: 40px;
+   font-size: 16px;
+   border-radius: 15px;
+   background: none;
+   outline: none;
+ }
+
+ label{
+  top: 100%;
+  left: 15px;
+ }
+ 
+ .pepe{
+  width: 100%;
+  margin: 1px;
+  border: 2px solid ;
+  border-radius: 30px;
+  background: #1795fc;
+  color: aliceblue;
+}
+.btn-group{
+  width: 100%;
+  margin: 1px;
+  border: 2px solid ;
+  border-radius: 30px; 
+  color: aliceblue;
+}
+.pepe2{
+  width: 100%;
+  margin: 1px;
+  border: 2px solid ;
+  border-radius: 30px;
+  background: #bbbbbb;
+  color: aliceblue;
+}
+
+.margen{
+  margin:50px;
+}
+
+
+
+
