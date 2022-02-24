@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import MaterialesCard from './materialesCard';
+import MaterialesCard from './MaterialesCard';
+
+
 
 
 
@@ -16,13 +18,16 @@ class altaPedido extends React.Component {
             latitud:"",
             longitud:"",
             superficie:"",
-            tipoid:""
+            tipoid:"",
+            respuesta:"",
+            responsoOK:false
          }
        
     }
 
+
     componentDidMount(){
-        this.cargarDatos()       
+        this.cargarDatos()     
     
     }    
 
@@ -47,14 +52,9 @@ class altaPedido extends React.Component {
 
     enviarDatos= (e) =>{
         e.preventDefault();
-    const {idObra,descripcion,direccion,latitud, longitud, superficie, tipoid}=this.state;
-    console.log("form enviado..");
-     console.log(idObra)
-    
-    const headers = { 'Content-Type': 'application/json' }
+    const {idObra,respuesta}=this.state;  
 
-    var nuevopedido={ 
-        
+    var nuevopedido={         
      "obra": {
         "id": idObra
       },
@@ -64,116 +64,87 @@ class altaPedido extends React.Component {
             "id": 3,            
             "precio": 50.0
           },
-          "cantidad": 50
+          "cantidad": 21
           
         },
         {          
           "producto": {
-            "id": 1,       
-            "precio": 850.0
+            "id": 2,       
+            "precio": 550.0
           },
-          "cantidad": 500         
+          "cantidad": 6
         }
       ],
       "estado": {        
       }
-    }
+    }                
+       
+        fetch("http://localhost:1000/pedidos/api/pedido/", {
+            method:"POST",
+            headers: {'Content-Type': 'application/json'},      
+            body:JSON.stringify(nuevopedido)
+        })                
+                .then(  response=> { 
+                    if(response.ok){
+                        response.text();
+                        //this.setState({respuesta:response});
+                        
+                        console.log("respuesta ok "+ response);
+                                                      
+                    }else{  
+                         console.log("respuesta F sad");                             
+                         throw new Error(response.status); 
+                        } 
+                    })
+                .then((datosResponse)=>{
+                        this.setState({respuesta:datosResponse});                       
+                        console.log( datosResponse);
+                        window.alert("Pedido cargado con exito!"+ respuesta);           
+                        console.log("Pedido cargado con exito, El estado del pedido es: "+ respuesta);
+                        })
+                .catch(error => { console.log(error);  window.alert("Error al enviar el pedido, Revise su situacion crediticia: "+ error) })
+
+                
+                
+
+                
+               
+                
+
+            /* .then(response=>response.text())
+            .then((datosResponse)=>{
+                                    this.setState({respuesta:datosResponse});                
+                                    console.log("Pedido cargado con exito, El estado del pedido es: "+ respuesta);
+                                    })*/
+            
+            
+        }
     
-    console.log(nuevopedido)
-    console.log(JSON.stringify(nuevopedido))
-        
-    fetch("http://localhost:1000/pedidos/api/pedido/", {
-      method:"POST",
-      headers: {        
-        'Content-Type': 'application/json'
-      },      
-      body:JSON.stringify(nuevopedido)
-    })                  
-        .then(response=>response.json())
-        .then((datosResponse)=>{
-            console.log(datosResponse)
-        })
-        .catch(console.log)    
-    }
+          
+    
+    
     render() {
         
         const {listaMaterial, idObra}=this.state;
+        let obra={id: idObra}
         return ( 
             
         <div>  
             <div className="card">
-             <div className="card-header">
-                 <Link className="btn btn-success"to={"/info/pedidos/"+ idObra}> Atras </Link>                 
-               
-             </div>
-            <div className="conteiner"> 
-                <MaterialesCard/>
-                <div class="row">
-                    <div class="col-xs-1-12">
-                        <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Title</h3>
-                            <p class="card-text">Precio</p>
-                            <a name="" id="" class="btn btn-primary" href="#" role="card-button">agregar</a>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-1-12">
-                        <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Title 2</h3>
-                            <p class="card-text">Precio 2</p>
-                            <a name="" id="" class="btn btn-primary" href="#" role="card-button">agregar 2</a>
-                        </div>
-                        </div>
-                    </div>
-
-                </div>
-                            
-                        
-            
-            </div>
-             
-            <div className="card-body">
-                 <h4>Carrito de Materiales</h4>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Descripcion</th>
-                        <th>Precio</th>
-                        <th>Unidad</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                    listaMaterial.map(
-                        (material)=>(
-                            <tr key={material.id}>                            
-                                <td>{material.id}</td>
-                                <td>{material.descripcion}</td>
-                                <td>{material.precio}</td>
-                                <td>{material.unidad.descripcion}</td>
-                                <td>
-                                    <div className="btn-group" role="group" aria-label="">
-                                    <input type="number" name="material.descripcion" value={material.id} onChange={this.cambioValor} id="latitud" className="form-control " placeholder="" aria-describedby="helpId"/>                     
-                                    </div>
-                                </td>
-                            </tr>
-                             )
-                     )
+                <div className="card-header">
+                    <Link className="btn btn-success"to={"/info/pedidos/"+ idObra}> Atras </Link>                 
                 
-                     }
-            
-          
-                </tbody>
-            </table>
+                </div>
+                <div className="conteiner"> 
+                    <MaterialesCard key={idObra}  data={obra}/>   
+                  <a style={{width:"100%", padding:"1rem" }} class="btn btn-success" href="#" onClick={this.enviarDatos} role="button">Comprar Carrito</a>
+                </div>   
 
             </div>
-                <a name="" id="" class="btn btn-primary" href="#" onClick={this.enviarDatos} role="button">Comprar</a>
-            </div>
+                
+            
         </div>
+
          );
     }
 }
