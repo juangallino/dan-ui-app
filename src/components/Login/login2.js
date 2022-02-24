@@ -28,7 +28,7 @@ class segundologin extends React.Component {
             checkCuit=(e)=>{
                 const headers = { 'Content-Type': 'application/json' }
                 
-                const { datoUser}=this.state;
+                const { datoUser, password, user}=this.state;
                 console.log("1")
                 fetch("http://localhost:1000/usuarios/api/cliente/cuit/"+ this.state.cuit   )                  
                     .then(response=>response.json())
@@ -36,11 +36,9 @@ class segundologin extends React.Component {
                         
                         this.setState({datosCargados:true, datoUser:datosResponse, idCliente:datosResponse.id});
                         console.log(datosResponse);
-                        console.log(this.state.idCliente);
-                        console.log("2");
                         this.checkUsuario(e);
                     })
-                    .catch()
+                    .catch(error => { window.alert("El CUIT no corresponde con un cliente en servicio"); })
 
                     
                      
@@ -48,26 +46,20 @@ class segundologin extends React.Component {
             } 
             
             checkUsuario= (e) =>{
-                e.preventDefault();              
-               console.log("3");              
-                             
+                e.preventDefault();    
                 const {user, password, datoUser,idCliente, usr, psw}=this.state;
-            
         
-            if(datoUser.user.user==user || datoUser.user.password==password){   
+            if(datoUser.user.user==user && datoUser.user.password==password){   
                 console.log("ok.");
-                 window.location.href="/info/obras/" + idCliente
-                
+                window.location.href="/info/obras/" + idCliente                
             }
                 else{
-                    console.log("usr db"+usr);
-                    console.log(user);
-                    console.log("pass db" +psw);
-                    console.log(password);
+                    window.alert("El usuario o la contraseña no coinciden"); 
                     console.log("Error de inicio de sesion");
-                }
-                console.log("4");
+                    
+               
             }
+        }
 
 
     
