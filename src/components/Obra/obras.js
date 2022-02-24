@@ -32,7 +32,16 @@ class obras extends React.Component {
     componentDidMount(){
         this.cargarDatos()       
     
-    }    
+    }   
+    
+     eliminarObra=(id)=> {
+         console.log(id);
+            fetch("http://localhost:1000/usuarios/api/obra/" + id , {
+            method:"DELETE",
+            headers: {'Content-Type': 'application/json'} })
+            .then(console.log("obra eliminada ok"))
+
+    }
 
 
     render() { 
@@ -74,9 +83,8 @@ class obras extends React.Component {
                                 <td>{obra.direccion}</td>
                                 <td>{obra.tipo.descripcion}</td>
                                 <td>
-                                    <div className="btn-group" role="group" aria-label="">
-                                    <Link className="btn btn-primary" to={"/editar"}>Editar</Link> 
-                                    <button type="button" className="btn btn-danger">Borrar</button> 
+                                    <div className="btn-group" role="group" aria-label="">                                     
+                                     
                                     <Link className="btn btn-warning" to={"/info/pedidos/"+ obra.id}>Administrar Pedidos</Link>                       
                                     </div>
                                 </td>
@@ -91,7 +99,7 @@ class obras extends React.Component {
             </table>
 
             </div>
-                <div className="card-footer text-muted">     footerrr  </div>
+                <div className="card-footer text-muted"></div>
             </div>
         </div>
               );

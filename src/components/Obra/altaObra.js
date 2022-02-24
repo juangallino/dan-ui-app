@@ -43,8 +43,7 @@ class altaObra extends React.Component {
         "id": tipoid
       }
     }
-    console.log(nuevaObra)
-    console.log(JSON.stringify(nuevaObra))
+   
         
     fetch("http://localhost:1000/usuarios/api/obra/", {
       method:"POST",
@@ -55,9 +54,9 @@ class altaObra extends React.Component {
       body:JSON.stringify(nuevaObra)
     })                  
         .then(response=>response.json())
-        .then((datosResponse)=>{
-            console.log(datosResponse)
-        })
+        .then(
+            window.alert("Obra creada con exito")
+        )
         .catch(console.log)    
     }
     render() {
@@ -106,7 +105,7 @@ class altaObra extends React.Component {
                     <div class="form-group">
                       <label for="tipoid">Tipo de Obra</label>
                       <select class="form-control" value={tipoid} onChange={this.cambioValor} name="tipoid" id="tipoid">
-                      <option value="">----Seleccionar----</option>
+                      <option value="1">----Seleccionar----</option>
                         <option value="1">REFORMA</option>
                         <option value="2">CASA</option>
                         <option value="3">EDIFICIO</option>
@@ -119,7 +118,7 @@ class altaObra extends React.Component {
                     
 
                     <div className="btn-group" role="group" aria-label="">
-                    <Link type="button" className="btn btn-primary" to={"/info/obras"} >Cancelar</Link>
+                    <Link type="button" className="btn btn-primary" to={"/info/obras/" +idCliente} >Cancelar</Link>
                         <button type="submit"  className="btn btn-success">Agregar Obra</button>
                         
                        
@@ -130,7 +129,7 @@ class altaObra extends React.Component {
                 </div>
                 
                 <div classname="card-footer text-muted">
-                <small id="helpId" classname="text-muted">Alta de empleado</small>
+                <small id="helpId" classname="text-muted">Alta de Obra</small>
                  </div>
             </div>
          );

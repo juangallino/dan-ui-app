@@ -13,7 +13,7 @@ import login2 from "./components/Login/login2"
 import altaObra from "./components/Obra/altaObra"
 import infouser from './components/Usuarios/infoUser';
 import altaPedido from './components/Pedido/altaPedido';
-import materialesCard from './components/Pedido/materialesCard';
+//import materialesCard from './components/Pedido/materialesCard';
 
 
 
